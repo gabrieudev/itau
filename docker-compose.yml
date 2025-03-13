@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      TZ: America/Sao_Paulo
+      DATASOURCE_URL: jdbc:postgresql://postgres:5432/itau
+      DATASOURCE_USERNAME: admin
+      DATASOURCE_PASSWORD: admin
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test:
+        ["CMD", "curl", "-f", "http://localhost:8080/api/v1/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - itau
+
+  postgres:
+    container_name: postgres
+    image: postgres:13
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: itau
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d itau"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - itau
+
+volumes:
+  postgres_data:
+
+networks:
+  itau:
+    driver: bridge
