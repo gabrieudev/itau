@@ -78,7 +78,7 @@ O projeto cumpriu os seguintes requisitos extras:
 2. **Containerização:** A aplicação está totalmente containerizada, incluindo Dockerfile e docker compose com todos os serviços necessários.
 3. **Logs:** Logs de informação e erro foram adicionados nas camadas de controladores (requisições HTTP) e serviços (lógica de negócio).
 4. **Observabilidade:** É possível obter o status da aplicação através da URL [http://localhost:8080/api/v1/actuator/health](http://localhost:8080/api/v1/actuator/health).
-5. **Performance:** A aplicação gasta, em média, 57ms para o cálculo das estatísticas.
+5. **Performance:** A aplicação gasta, em média, 16ms para o cálculo das estatísticas.
 6. **Tratamento de Erros:** As exceções são tratadas através de um Exception Handler global, que os converte para uma classe de resposta genérica contendo informações como status, mensagem e timestamp.
 7. **Documentação da API:** A API utiliza o Swagger UI como interface para documentação.
 8. **Documentação do Sistema:** Além de criar uma imagem, com o Dockerfile também é possível interpretar um passo a passo de como executar a aplicação sem utilizar Docker, incluindo suas dependências e comandos para execução.
